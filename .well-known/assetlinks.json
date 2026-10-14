@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.ebruerdikarasu.hayvandostlariapp",
+      "sha256_cert_fingerprints": [
+        "10:C1:A1:59:55:45:AA:C2:BF:73:E3:73:B0:9F:B8:70:82:B0:A9:98:75:48:BA:ED:10:53:D8:37:9D:11:33:EA",
+        "C2:2C:52:F8:54:8E:7A:33:3B:81:4F:96:F6:EF:A6:2F:AA:90:52:16:8D:14:F3:40:25:B8:33:96:57:3A:3E:25"
+      ]
+    }
+  }
+]
