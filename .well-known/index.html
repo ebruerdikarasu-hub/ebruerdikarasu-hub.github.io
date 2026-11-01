@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Hayvan Dostları: 5-8 yaş çocuklar için reklamsız, sesli eğitici oyun. 11 bölüm, 5 dil, İngilizce alfabe ve kelimeler.">
+<title>Hayvan Dostları</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Quicksand:wght@500;600;700&display=swap">
+<style>
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+/* Layout: a sky-to-meadow scroll — the hero is the game's own scene, sections sit on cream "paper" between bands of sky and grass */
+:root{
+  --sky:#7FD3FF; --sky-2:#CFF0FF; --grass:#6CCB5A; --grass-2:#3FA54C;
+  --fox:#F2662B; --fox-2:#FF9A3C; --sun:#FFC93C;
+  --paper:#FFF8EC; --card:#FFFFFF; --ink:#3A2A1E; --ink-soft:#7A6553; --line:#EFE2CC;
+  --display:"Baloo 2", "Trebuchet MS", system-ui, sans-serif;
+  --body:"Quicksand", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --sky:#1E3A6B; --sky-2:#2B5797; --grass:#2E7D3A; --grass-2:#1E5A28;
+  --paper:#17202E; --card:#202B3D; --ink:#F4EDE2; --ink-soft:#B9AE9F; --line:#33415A; color-scheme:dark } }
+:root[data-theme="dark"]{ --sky:#1E3A6B; --sky-2:#2B5797; --grass:#2E7D3A; --grass-2:#1E5A28;
+  --paper:#17202E; --card:#202B3D; --ink:#F4EDE2; --ink-soft:#B9AE9F; --line:#33415A; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);line-height:1.1;text-wrap:balance;margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--fox);outline-offset:3px;border-radius:8px}
+/* hero */
+.hero{background:linear-gradient(180deg,var(--sky) 0%,var(--sky-2) 100%);padding-block:28px 0;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:28px;align-items:center}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:20px;color:#1E4E73;grid-column:1/-1}
+.brand svg{width:36px;height:36px}
+.hero h1{font-size:clamp(46px,8vw,86px);font-weight:800;color:var(--fox);-webkit-text-stroke:0;text-shadow:0 4px 0 #fff,0 7px 0 rgba(184,64,28,.25);letter-spacing:-1px}
+.hero .lead{font-size:clamp(18px,2.4vw,22px);font-weight:600;color:#1E4E73;margin:14px 0 22px;max-width:30ch}
+:root[data-theme="dark"] .brand, :root[data-theme="dark"] .hero .lead{color:#E3F2FF}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .brand, :root:not([data-theme="light"]) .hero .lead{color:#E3F2FF} }
+.ctas{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:21px;text-decoration:none;
+  padding:14px 28px;border-radius:999px;background:linear-gradient(180deg,var(--fox-2),var(--fox));color:#fff;box-shadow:0 6px 0 #B8401C;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)} .btn:active{transform:translateY(3px);box-shadow:0 3px 0 #B8401C}
+.soon{font-weight:700;font-size:15px;padding:10px 16px;border-radius:999px;background:var(--card);color:var(--ink-soft);border:2px dashed var(--line)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chip{font-weight:700;font-size:14px;padding:5px 12px;border-radius:999px;background:rgba(255,255,255,.75);color:#1E4E73}
+.scene-box{align-self:end}
+.scene{width:100%;height:auto;display:block;border-radius:28px 28px 0 0}
+.meadow{height:26px;background:linear-gradient(180deg,var(--grass),var(--grass-2))}
+/* sections */
+section{padding-block:56px}
+.kicker{font-weight:700;color:var(--fox);font-size:15px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 6px}
+section h2{font-size:clamp(30px,4.6vw,44px);margin-bottom:10px}
+.sub{color:var(--ink-soft);max-width:60ch;margin:0 0 26px}
+.tiles{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.tile{position:relative;overflow:hidden;border-radius:22px;padding:18px 12px 16px;text-align:center;color:#fff;
+  background:linear-gradient(160deg,var(--t1),var(--t2));box-shadow:0 6px 0 rgba(0,0,0,.12);display:flex;flex-direction:column;align-items:center;gap:6px}
+.tile::before{content:"";position:absolute;left:10px;right:10px;top:8px;height:24px;border-radius:12px;background:rgba(255,255,255,.22)}
+.tile svg{filter:drop-shadow(0 3px 2px rgba(0,0,0,.18));position:relative}
+.tile b{font-family:var(--display);font-size:16px;white-space:nowrap;background:#fff;color:#3A2A1E;padding:2px 14px;border-radius:999px}
+.tile span{font-size:13.5px;font-weight:600;line-height:1.35}
+.tile:nth-child(2){outline:3px solid var(--sun);outline-offset:-3px}
+.new{position:absolute;top:10px;right:10px;font-size:11px;font-weight:800;background:var(--sun);color:#5A3A00;padding:1px 8px;border-radius:999px}
+.feats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.feat{display:flex;gap:16px;align-items:flex-start;background:var(--card);border:2px solid var(--line);border-radius:22px;padding:20px}
+.feat svg{flex-shrink:0;background:var(--paper);border-radius:16px;padding:4px}
+.feat h3{font-size:22px;margin-bottom:4px} .feat p{margin:0;color:var(--ink-soft)}
+.feat div{min-width:0}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;counter-reset:s;list-style:none;padding:0;margin:0}
+.steps li{counter-increment:s;background:var(--card);border-radius:22px;padding:20px;border:2px solid var(--line)}
+.steps li::before{content:counter(s);display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--fox);color:#fff;font-family:var(--display);font-weight:800;font-size:22px;margin-bottom:8px}
+.steps h3{font-size:21px} .steps p{margin:4px 0 0;color:var(--ink-soft)}
+.parents{background:linear-gradient(180deg,var(--grass),var(--grass-2));color:#fff}
+.parents .sub,.parents .kicker{color:#F1FFE9}
+.trust{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.trust div{background:rgba(255,255,255,.16);border-radius:20px;padding:18px}
+.trust h3{font-size:21px;margin-bottom:4px} .trust p{margin:0}
+.faq details{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:14px 18px;margin-bottom:10px}
+.faq summary{font-family:var(--display);font-weight:700;font-size:19px;cursor:pointer}
+.faq p{margin:8px 0 0;color:var(--ink-soft)}
+.final{text-align:center}
+.final .ctas{justify-content:center}
+footer{padding-block:28px;border-top:2px solid var(--line);color:var(--ink-soft);font-size:15px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between}
+@media (max-width:760px){
+  .hero .wrap{grid-template-columns:1fr} .feats,.steps,.trust{grid-template-columns:1fr}
+  .scene{border-radius:22px 22px 0 0} section{padding-block:42px}
+}
+@media (prefers-reduced-motion:reduce){ .btn{transition:none} }
+</style>
+
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="hd-sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#7FD3FF"/>
+    <stop offset="0.65" stop-color="#C9EEFF"/>
+    <stop offset="1" stop-color="#FFF4D6"/>
+  </linearGradient>
+  <linearGradient id="hd-hill1" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#8EE06B"/><stop offset="1" stop-color="#56B947"/>
+  </linearGradient>
+  <linearGradient id="hd-hill2" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#B8EE8C"/><stop offset="1" stop-color="#7FD064"/>
+  </linearGradient>
+  <radialGradient id="hd-sun" cx="50%" cy="50%" r="50%">
+    <stop offset="0" stop-color="#FFF3A6"/><stop offset="0.7" stop-color="#FFD43B"/><stop offset="1" stop-color="#FFC21A"/>
+  </radialGradient>
+  <!-- fur gradients -->
+  <radialGradient id="hd-foxG" cx="38%" cy="30%" r="75%">
+    <stop offset="0" stop-color="#FFB46A"/><stop offset="0.6" stop-color="#FF8A33"/><stop offset="1" stop-color="#F06A1C"/>
+  </radialGradient>
+  <radialGradient id="hd-creamG" cx="45%" cy="35%" r="70%">
+    <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#FFE8D2"/>
+  </radialGradient>
+  <radialGradient id="hd-bunG" cx="38%" cy="30%" r="75%">
+    <stop offset="0" stop-color="#FFFFFF"/><stop offset="0.7" stop-color="#F3ECFF"/><stop offset="1" stop-color="#DCCFF5"/>
+  </radialGradient>
+  <radialGradient id="hd-pandaW" cx="38%" cy="30%" r="75%">
+    <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#E4E8EE"/>
+  </radialGradient>
+  <radialGradient id="hd-pandaB" cx="38%" cy="30%" r="80%">
+    <stop offset="0" stop-color="#4C4F5C"/><stop offset="1" stop-color="#22232B"/>
+  </radialGradient>
+  <radialGradient id="hd-chickG" cx="38%" cy="30%" r="75%">
+    <stop offset="0" stop-color="#FFF27A"/><stop offset="0.6" stop-color="#FFD626"/><stop offset="1" stop-color="#F5B800"/>
+  </radialGradient>
+  <linearGradient id="hd-titleG" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#FF9A3C"/><stop offset="1" stop-color="#F0552A"/>
+  </linearGradient>
+  <filter id="hd-soft" x="-30%" y="-30%" width="160%" height="160%">
+    <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#2F6B2A" flood-opacity="0.25"/>
+  </filter>
+  <filter id="hd-tsh" x="-10%" y="-20%" width="120%" height="150%">
+    <feDropShadow dx="0" dy="5" stdDeviation="0" flood-color="#B8401C" flood-opacity="1"/>
+    <feDropShadow dx="0" dy="10" stdDeviation="8" flood-color="#1D5E86" flood-opacity="0.25"/>
+  </filter>
+
+  <!-- shared eye -->
+  <g id="hd-eye">
+    <ellipse cx="0" cy="0" rx="9.5" ry="12" fill="#2B1A12"/>
+    <circle cx="-3" cy="-4.5" r="3.6" fill="#fff"/>
+    <circle cx="3" cy="4" r="1.7" fill="#fff"/>
+  </g>
+  <path id="hd-star" d="M0,-12 L3.5,-3.8 L12,-3.7 L5.4,1.8 L7.4,10.5 L0,5.8 L-7.4,10.5 L-5.4,1.8 L-12,-3.7 L-3.5,-3.8Z"/>
+  <path id="hd-heart" d="M0,10 C-14,0 -14,-12 -6,-12 C-2,-12 0,-8 0,-6 C0,-8 2,-12 6,-12 C14,-12 14,0 0,10Z"/>
+  <g id="hd-note">
+    <ellipse cx="0" cy="18" rx="9" ry="7" transform="rotate(-20 0 18)"/><rect x="6" y="-16" width="3.8" height="34" rx="1.5"/>
+    <path d="M9.8,-16 q14,5 11,19 q-3,-9 -11,-9z"/>
+  </g>
+  <g id="hd-cloud" fill="#fff">
+    <ellipse cx="0" cy="0" rx="46" ry="20"/><circle cx="-18" cy="-12" r="20"/><circle cx="14" cy="-18" r="24"/>
+  </g>
+</defs></svg>
+<header class="hero">
+  <div class="wrap">
+    <div class="brand"><svg class="logo" width="36" height="36" viewBox="-50 -50 100 100" aria-hidden="true"><g fill="#F2662B"><ellipse cx="0" cy="10" rx="17" ry="14"/><circle cx="-19" cy="-10" r="7"/><circle cx="-7" cy="-20" r="7"/><circle cx="7" cy="-20" r="7"/><circle cx="19" cy="-10" r="7"/></g></svg>Hayvan Dostları</div>
+    <div>
+      <h1>Hayvan Dostları</h1>
+      <p class="lead">5-8 yaş çocuklar için sesli eğitici oyun. Hayvanları, renkleri, sayıları ve İngilizceyi dinleyerek, görerek ve oynayarak öğrenir.</p>
+      <div class="ctas">
+        <a class="btn" href="https://ebruerdikarasu-hub.github.io/hayvan-dostlari/" target="_blank" rel="noopener">Hemen Oyna</a>
+        <span class="soon">Google Play'de çok yakında</span>
+      </div>
+      <div class="chips"><span class="chip">Reklamsız</span><span class="chip">11 bölüm</span><span class="chip">5 dil</span><span class="chip">Sesli anlatım</span></div>
+    </div>
+    <div class="scene-box"><svg class="scene" viewBox="0 0 480 190" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<rect width="480" height="190" rx="26" fill="url(#hd-sky)"/>
+<circle cx="440" cy="26" r="34" fill="url(#hd-sun)"/>
+<g fill="#fff" opacity=".9"><ellipse cx="80" cy="40" rx="34" ry="14"/><circle cx="66" cy="31" r="14"/><circle cx="92" cy="27" r="17"/></g>
+<path d="M0,150 C120,128 250,140 330,134 C400,129 440,132 480,138 L480,190 L0,190Z" fill="url(#hd-hill2)"/>
+<path d="M0,168 C130,156 260,166 360,158 C420,153 450,156 480,160 L480,190 L0,190Z" fill="url(#hd-hill1)"/>
+<g transform="translate(105,176) scale(0.62) translate(-575,-438)">
+<ellipse cx="575" cy="438" rx="34" ry="7" fill="#2F6B2A" opacity="0.18"/>
+<g transform="translate(575,402) rotate(-8)" filter="url(#hd-soft)">
+<g transform="rotate(-14 -16 -150)">
+<ellipse cx="-16" cy="-175" rx="15" ry="44" fill="url(#hd-bunG)"/>
+<ellipse cx="-16" cy="-172" rx="7.5" ry="33" fill="#FFB3C7"/>
+</g>
+<g transform="rotate(16 16 -150)">
+<ellipse cx="16" cy="-175" rx="15" ry="44" fill="url(#hd-bunG)"/>
+<ellipse cx="16" cy="-172" rx="7.5" ry="33" fill="#FFB3C7"/>
+</g>
+<ellipse cx="0" cy="-36" rx="30" ry="34" fill="url(#hd-bunG)"/>
+<ellipse cx="0" cy="-30" rx="18" ry="22" fill="#fff"/>
+<ellipse cx="-20" cy="-4" rx="15" ry="9" fill="#F3ECFF" transform="rotate(-20 -20 -4)"/>
+<ellipse cx="20" cy="-4" rx="15" ry="9" fill="#F3ECFF" transform="rotate(20 20 -4)"/>
+<ellipse cx="-32" cy="-62" rx="9" ry="17" fill="#F3ECFF" transform="rotate(35 -32 -62)"/>
+<ellipse cx="32" cy="-62" rx="9" ry="17" fill="#F3ECFF" transform="rotate(-35 32 -62)"/>
+<ellipse cx="0" cy="-108" rx="50" ry="45" fill="url(#hd-bunG)"/>
+<use href="#hd-eye" transform="translate(-19,-112)"/>
+<use href="#hd-eye" transform="translate(19,-112)"/>
+<ellipse cx="-33" cy="-94" rx="9" ry="6" fill="#FF8FB0" opacity="0.7"/>
+<ellipse cx="33" cy="-94" rx="9" ry="6" fill="#FF8FB0" opacity="0.7"/>
+<path d="M-5,-98 L5,-98 L0,-92Z" fill="#FF6F96"/>
+<path d="M-9,-90 Q0,-76 9,-90 Z" fill="#8C2A2A"/>
+<path d="M-5,-84 Q0,-79 5,-84 Q0,-86 -5,-84Z" fill="#FF7F95"/>
+</g>
+<g stroke="#fff" stroke-width="4" stroke-linecap="round" opacity="0.9">
+<line x1="530" y1="420" x2="518" y2="432"/><line x1="620" y1="420" x2="632" y2="432"/>
+</g>
+</g>
+<g transform="translate(370,178) scale(0.6) translate(-910,-436)">
+<ellipse cx="910" cy="436" rx="56" ry="9" fill="#2F6B2A" opacity="0.2"/>
+<g transform="translate(910,430)" filter="url(#hd-soft)">
+<ellipse cx="0" cy="-48" rx="46" ry="46" fill="url(#hd-pandaW)"/>
+<ellipse cx="-30" cy="-12" rx="20" ry="15" fill="url(#hd-pandaB)"/>
+<ellipse cx="30" cy="-12" rx="20" ry="15" fill="url(#hd-pandaB)"/>
+<ellipse cx="-30" cy="-12" rx="9" ry="7" fill="#5A5D6A"/>
+<ellipse cx="30" cy="-12" rx="9" ry="7" fill="#5A5D6A"/>
+<ellipse cx="-22" cy="-62" rx="13" ry="24" fill="url(#hd-pandaB)" transform="rotate(-40 -22 -62)"/>
+<ellipse cx="22" cy="-62" rx="13" ry="24" fill="url(#hd-pandaB)" transform="rotate(40 22 -62)"/>
+<circle cx="-42" cy="-150" r="18" fill="url(#hd-pandaB)"/>
+<circle cx="42" cy="-150" r="18" fill="url(#hd-pandaB)"/>
+<ellipse cx="0" cy="-120" rx="58" ry="50" fill="url(#hd-pandaW)"/>
+<ellipse cx="-22" cy="-122" rx="15" ry="18" fill="#2A2B33" transform="rotate(25 -22 -122)"/>
+<ellipse cx="22" cy="-122" rx="15" ry="18" fill="#2A2B33" transform="rotate(-25 22 -122)"/>
+<circle cx="-21" cy="-123" r="7.5" fill="#fff"/><circle cx="21" cy="-123" r="7.5" fill="#fff"/>
+<circle cx="-20" cy="-122" r="5" fill="#2B1A12"/><circle cx="22" cy="-122" r="5" fill="#2B1A12"/>
+<circle cx="-22" cy="-125" r="2" fill="#fff"/><circle cx="20" cy="-125" r="2" fill="#fff"/>
+<ellipse cx="0" cy="-102" rx="8" ry="5.5" fill="#2A2B33"/>
+<path d="M-11,-94 Q0,-78 11,-94 Z" fill="#8C2A2A"/>
+<path d="M-6,-86 Q0,-81 6,-86 Q0,-89 -6,-86Z" fill="#FF7F95"/>
+<ellipse cx="-40" cy="-100" rx="9" ry="6" fill="#FF8FB0" opacity="0.6"/>
+<ellipse cx="40" cy="-100" rx="9" ry="6" fill="#FF8FB0" opacity="0.6"/>
+</g>
+<g fill="#FFC21A">
+</g>
+</g>
+<g transform="translate(175,60) scale(0.5) translate(-655,-175)">
+<g transform="translate(655,175) rotate(-10)" filter="url(#hd-soft)">
+<path d="M-4,-40 Q-2,-56 6,-48 Q9,-60 16,-46" stroke="#F5B800" stroke-width="5" fill="none" stroke-linecap="round"/>
+<ellipse cx="-36" cy="-14" rx="12" ry="22" fill="#FFD626" transform="rotate(-55 -36 -14)"/>
+<ellipse cx="36" cy="-14" rx="12" ry="22" fill="#FFD626" transform="rotate(55 36 -14)"/>
+<circle cx="0" cy="0" r="38" fill="url(#hd-chickG)"/>
+<use href="#hd-eye" transform="translate(-13,-6) scale(0.72)"/>
+<use href="#hd-eye" transform="translate(13,-6) scale(0.72)"/>
+<path d="M-9,4 L9,4 L0,13Z" fill="#FF8A1F"/>
+<path d="M-7,10 L7,10 L0,17Z" fill="#E86A10"/>
+<ellipse cx="-24" cy="8" rx="6" ry="4" fill="#FF8F6A" opacity="0.6"/>
+<ellipse cx="24" cy="8" rx="6" ry="4" fill="#FF8F6A" opacity="0.6"/>
+<path d="M-8,36 l-4,10 M-8,36 l0,11 M8,36 l4,10 M8,36 l0,11" stroke="#FF8A1F" stroke-width="3" stroke-linecap="round"/>
+</g>
+</g>
+<g transform="translate(240,182) scale(0.64) translate(-760,-446)">
+<ellipse cx="760" cy="446" rx="66" ry="10" fill="#2F6B2A" opacity="0.22"/>
+<g transform="translate(760,440) scale(1.12)" filter="url(#hd-soft)">
+<path d="M26,-40 C78,-44 104,-96 88,-150 C80,-118 64,-100 44,-92 C56,-84 50,-66 26,-62Z" fill="url(#hd-foxG)"/>
+<path d="M88,-150 C80,-125 70,-112 58,-104 C72,-112 86,-122 92,-136Z" fill="#fff"/>
+<ellipse cx="-17" cy="-8" rx="15" ry="10" fill="#3A2418"/>
+<ellipse cx="17" cy="-8" rx="15" ry="10" fill="#3A2418"/>
+<ellipse cx="0" cy="-48" rx="36" ry="40" fill="url(#hd-foxG)"/>
+<ellipse cx="0" cy="-42" rx="21" ry="28" fill="url(#hd-creamG)"/>
+<ellipse cx="32" cy="-50" rx="9" ry="18" fill="#F07A28" transform="rotate(-20 32 -50)"/>
+<path d="M-58,-150 C-62,-196 -54,-214 -46,-212 C-34,-206 -14,-186 -12,-168Z" fill="url(#hd-foxG)"/>
+<path d="M58,-150 C62,-196 54,-214 46,-212 C34,-206 14,-186 12,-168Z" fill="url(#hd-foxG)"/>
+<path d="M-46,-158 C-50,-186 -46,-198 -42,-196 C-34,-190 -24,-178 -22,-168Z" fill="#FFD9BF"/>
+<path d="M46,-158 C50,-186 46,-198 42,-196 C34,-190 24,-178 22,-168Z" fill="#FFD9BF"/>
+<path d="M-66,-128 C-66,-170 -36,-188 0,-188 C36,-188 66,-170 66,-128 C66,-104 50,-86 0,-84 C-50,-86 -66,-104 -66,-128Z" fill="url(#hd-foxG)"/>
+<path d="M-62,-118 C-50,-120 -30,-114 -14,-108 C-8,-96 -2,-92 0,-92 C2,-92 8,-96 14,-108 C30,-114 50,-120 62,-118 C56,-96 36,-84 0,-84 C-36,-84 -56,-96 -62,-118Z" fill="url(#hd-creamG)"/>
+<use href="#hd-eye" transform="translate(-23,-134) scale(1.05)"/>
+<use href="#hd-eye" transform="translate(23,-134) scale(1.05)"/>
+<ellipse cx="0" cy="-110" rx="8" ry="5.5" fill="#2B1A12"/>
+<ellipse cx="-2" cy="-112" rx="2.5" ry="1.4" fill="#fff" opacity="0.8"/>
+<path d="M-12,-102 Q0,-84 12,-102 Z" fill="#8C2A2A"/>
+<path d="M-7,-93 Q0,-87 7,-93 Q0,-96 -7,-93Z" fill="#FF7F95"/>
+<ellipse cx="-44" cy="-112" rx="9" ry="6" fill="#FF6F6F" opacity="0.45"/>
+<ellipse cx="44" cy="-112" rx="9" ry="6" fill="#FF6F6F" opacity="0.45"/>
+<g transform="translate(-36,-68) rotate(-40)">
+<ellipse cx="0" cy="-30" rx="10" ry="30" fill="#FF8A33"/>
+<ellipse cx="0" cy="-58" rx="11" ry="10" fill="#3A2418"/>
+</g>
+</g>
+</g>
+<g fill="#7B4DFF"><use href="#hd-note" transform="translate(305,70) rotate(14) scale(.8)"/></g>
+<g fill="#FF4F8B"><use href="#hd-note" transform="translate(30,95) rotate(-10) scale(.7)"/></g>
+<use href="#hd-heart" transform="translate(320,112) scale(.8)" fill="#FF4F78"/>
+<use href="#hd-star" transform="translate(205,22) scale(.7)" fill="#FFC21A"/>
+</svg></div>
+  </div>
+</header>
+<div class="meadow" aria-hidden="true"></div>
+<main>
+  <section id="bolumler"><div class="wrap">
+    <p class="kicker">11 bölüm</p>
+    <h2>Her gün yeni bir konu keşfedin</h2>
+    <p class="sub">Hayvanlar bölümünde tek başına 130'dan fazla soru var. Yeni İngilizce bölümünde alfabe, ilk kelimeler, sayılar ve renkler İngilizce sesle okunur.</p>
+    <ul class="tiles"><li class="tile" style="--t1:#7EE08B;--t2:#3FAE56"><svg class="art" width="76" height="76" viewBox="-50 -50 100 100" aria-hidden="true"><g fill="#fff"><ellipse cx="0" cy="10" rx="17" ry="14"/><circle cx="-19" cy="-10" r="7"/><circle cx="-7" cy="-20" r="7"/><circle cx="7" cy="-20" r="7"/><circle cx="19" cy="-10" r="7"/></g></svg><b>Hayvanlar</b><span>Sesler, yaşam alanları, ne yedikleri</span></li><li class="tile" style="--t1:#6CC2FF;--t2:#2F8DE8"><svg class="art" width="76" height="76" viewBox="-50 -50 100 100" aria-hidden="true"><g transform="translate(-18,12) rotate(-8)"><rect x="-15" y="-15" width="30" height="30" rx="6" fill="#FF4F5E" stroke="#fff" stroke-width="2.5"/><text x="0" y="10" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="800" font-size="25" fill="#fff">A</text></g><g transform="translate(14,14) rotate(6)"><rect x="-15" y="-15" width="30" height="30" rx="6" fill="#FFC21A" stroke="#fff" stroke-width="2.5"/><text x="0" y="10" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="800" font-size="25" fill="#fff">B</text></g><g transform="translate(-2,-18) rotate(-4)"><rect x="-15" y="-15" width="30" height="30" rx="6" fill="#3CC46A" stroke="#fff" stroke-width="2.5"/><text x="0" y="10" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="800" font-size="25" fill="#fff">C</text></g><use href="#hd-star" transform="translate(28,-24) scale(0.6)" fill="#fff"/></svg><b>İngilizce</b><em class="new">YENİ</em><span>Alfabe, ilk kelimeler, sayılar</span></li><li class="tile" style="--t1:#FF96E4;--t2:#D15AC0"><svg class="art" width="76" height="76" viewBox="-50 -50 100 100" aria-hidden="true"><path d="M-30,4 C-34,-22 -8,-34 12,-28 C34,-22 38,0 24,8 C14,14 20,24 6,28 C-16,34 -28,22 -30,4Z" fill="#fff"/><circle cx="-16" cy="-6" r="7" fill="#FF4F5E"/><circle cx="2" cy="-18" r="7" fill="#FFC21A"/><circle cx="20" cy="-10" r="7" fill="#3CC46A"/><circle cx="-8" cy="14" r="7" fill="#3D8BFF"/><circle cx="12" cy="12" r="5" fill="#E066C6"/><g transform="rotate(35 22 22)"><rect x="18" y="-6" width="7" height="34" rx="3" fill="#8A5A00"/><path d="M17,-6 h9 l-4.5,-12z" fill="#FF4F5E"/></g></svg><b>Renkler</b><span>Temel renkleri tanıma</span></li><li class="tile" style="--t1:#FFCB6B;--t2:#F29A2E"><svg class="art" width="76" height="76" viewBox="-50 -50 100 100" aria-hidden="true"><g transform="translate(-16,14) rotate(-8)"><rect x="-15" y="-15" width="30" height="30" rx="6" fill="#FF4F5E"/><text x="0" y="10" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="800" font-size="27" fill="#fff">1</text></g><g transform="translate(16,14) rotate(6)"><rect x="-15" y="-15" width="30" height="30" rx="6" fill="#3D8BFF"/><text x="0" y="10" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="800" font-size="27" fill="#fff">2</text></g><g transform="translate(0,-17) rotate(-4)"><rect x="-15" y="-15" width="30" height="30" rx="6" fill="#3CC46A"/><text x="0" y="10" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="800" font-size="27" fill="#fff">3</text></g></svg><b>Sayılar</b><span>Sayma ve basit toplama</span></li><li class="tile" style="--t1:#6FE3CF;--t2:#2FB19D"><svg class="art" width="76" height="76" viewBox="-50 -50 100 100" aria-hidden="true"><path d="M-14,-30 L6,2 L-34,2Z" fill="#FFC21A" stroke="#fff" stroke-width="3" stroke-linejoin="round"/><circle cx="18" cy="-12" r="15" fill="#FF4F8B" stroke="#fff" stroke-width="3"/><rect x="-8" y="6" width="26" height="26" rx="4" fill="#3D8BFF" stroke="#fff" stroke-width="3" transform="rotate(10 5 19)"/></svg><b>Şekiller</b><span>Üçgen, kare, daire ve fazlası</span></li><li class="tile" style="--t1:#8FA6FF;--t2:#5468D8"><svg class="art" width="76" height="76" viewBox="-50 -50 100 100" aria-hidden="true"><circle cx="0" cy="0" r="22" fill="#FFB347"/><path d="M-22,-2 C-8,4 8,4 22,-2" stroke="#F08A24" stroke-width="5" fill="none"/><ellipse cx="0" cy="2" rx="38" ry="10" fill="none" stroke="#fff" stroke-width="5" transform="rotate(-18)"/><circle cx="-30" cy="-26" r="3" fill="#fff"/><circle cx="28" cy="24" r="2.5" fill="#fff"/><use href="#hd-star" transform="translate(28,-28) scale(0.5)" fill="#FFE066"/></svg><b>Gezegenler</b><span>Dünya, Güneş, Ay ve uzay</span></li><li class="tile" style="--t1:#FFB49E;--t2:#F0705A"><svg class="art" width="76" height="76" viewBox="-50 -50 100 100" aria-hidden="true"><rect x="-14" y="-28" width="28" height="14" rx="6" fill="none" stroke="#7A3B1E" stroke-width="5"/><rect x="-32" y="-18" width="64" height="46" rx="10" fill="#fff"/><rect x="-32" y="-18" width="64" height="10" rx="5" fill="#E9E2DA"/><rect x="-5" y="-4" width="10" height="26" rx="2" fill="#FF4F5E"/><rect x="-13" y="4" width="26" height="10" rx="2" fill="#FF4F5E"/></svg><b>Meslekler</b><span>Doktor, öğretmen, itfaiyeci</span></li><li class="tile" style="--t1:#FF9B9B;--t2:#E85454"><svg class="art" width="76" height="76" viewBox="-50 -50 100 100" aria-hidden="true"><g transform="translate(-10,4)"><circle cx="8" cy="4" r="20" fill="#FF3B3B" stroke="#fff" stroke-width="3"/><circle cx="-8" cy="4" r="20" fill="#FF3B3B" stroke="#fff" stroke-width="3"/><circle cx="8" cy="4" r="18.5" fill="#FF3B3B"/><ellipse cx="-12" cy="-4" rx="5" ry="7" fill="#fff" opacity="0.5"/><rect x="-1.5" y="-26" width="4" height="12" rx="2" fill="#7A4E00"/><ellipse cx="9" cy="-20" rx="9" ry="4.5" fill="#3CC46A" transform="rotate(-25 9 -20)"/></g><g transform="translate(24,10) rotate(30)"><path d="M-6,-14 L6,-14 L0,26Z" fill="#FF8A1F" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/><path d="M0,-14 l-6,-12 M0,-14 l0,-14 M0,-14 l6,-12" stroke="#3CC46A" stroke-width="4" stroke-linecap="round"/></g></svg><b>Meyve & Sebze</b><span>Elma, havuç, karpuz</span></li><li class="tile" style="--t1:#A3B4FF;--t2:#6577E0"><svg class="art" width="76" height="76" viewBox="-50 -50 100 100" aria-hidden="true"><path d="M-34,10 L-34,-2 Q-32,-10 -22,-12 L-14,-26 Q-10,-30 0,-30 L14,-30 Q22,-30 26,-22 L32,-12 Q38,-10 38,0 L38,10Z" fill="#FF4F5E"/><path d="M-10,-24 L-2,-24 L-2,-12 L-17,-12Z" fill="#BDE9FF"/><path d="M2,-24 L14,-24 Q18,-24 20,-20 L24,-12 L2,-12Z" fill="#BDE9FF"/><circle cx="-18" cy="12" r="10" fill="#2B2B33" stroke="#fff" stroke-width="3"/><circle cx="22" cy="12" r="10" fill="#2B2B33" stroke="#fff" stroke-width="3"/><circle cx="-18" cy="12" r="3.5" fill="#ccc"/><circle cx="22" cy="12" r="3.5" fill="#ccc"/><circle cx="34" cy="-2" r="3" fill="#FFE066"/></svg><b>Taşıtlar</b><span>Araba, tren, uçak, gemi</span></li><li class="tile" style="--t1:#7DD6F5;--t2:#3AA1D2"><svg class="art" width="76" height="76" viewBox="-50 -50 100 100" aria-hidden="true"><circle cx="-10" cy="-12" r="16" fill="#FFD43B"/><g stroke="#FFD43B" stroke-width="4" stroke-linecap="round"><line x1="-10" y1="-36" x2="-10" y2="-31"/><line x1="-34" y1="-12" x2="-29" y2="-12"/><line x1="-27" y1="-29" x2="-23" y2="-25"/><line x1="7" y1="-29" x2="3" y2="-25"/></g><g fill="#fff"><ellipse cx="8" cy="6" rx="26" ry="12"/><circle cx="-2" cy="-1" r="12"/><circle cx="14" cy="-5" r="14"/></g><g fill="#BDE9FF"><path d="M-2,22 q-4,6 0,8 q4,-2 0,-8z"/><path d="M10,22 q-4,6 0,8 q4,-2 0,-8z"/><path d="M22,22 q-4,6 0,8 q4,-2 0,-8z"/></g></svg><b>Hava & Mevsim</b><span>Güneşli, yağmurlu, karlı</span></li><li class="tile" style="--t1:#E4A6EE;--t2:#B867C8"><svg class="art" width="76" height="76" viewBox="-50 -50 100 100" aria-hidden="true"><circle cx="0" cy="2" r="26" fill="#FFD3B0" stroke="#fff" stroke-width="3"/><path d="M-26,-2 C-26,-26 26,-26 26,-2 C18,-14 6,-10 0,-18 C-6,-10 -18,-14 -26,-2Z" fill="#7A4220"/><circle cx="-9" cy="2" r="3.5" fill="#2B1A12"/><circle cx="9" cy="2" r="3.5" fill="#2B1A12"/><path d="M-9,12 Q0,20 9,12" stroke="#C0392B" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="-17" cy="10" r="4" fill="#FF8FB0" opacity="0.7"/><circle cx="17" cy="10" r="4" fill="#FF8FB0" opacity="0.7"/><use href="#hd-heart" transform="translate(26,24) scale(0.9)" fill="#FF4F78"/></svg><b>Vücudumuz</b><span>Göz, kulak, el, ayak</span></li></ul>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap">
+    <p class="kicker">Neden Hayvan Dostları</p>
+    <h2>Çocuğunuz oynarken öğrenir</h2>
+    <div class="feats"><article class="feat"><svg class="art" width="56" height="56" viewBox="-50 -50 100 100" aria-hidden="true"><rect x="-30" y="-24" width="30" height="46" rx="4" fill="#FF6B6B" transform="rotate(-6)"/><rect x="0" y="-24" width="30" height="46" rx="4" fill="#4FA8F5" transform="rotate(6)"/><rect x="-26" y="-20" width="24" height="38" rx="3" fill="#fff" transform="rotate(-6)"/><rect x="2" y="-20" width="24" height="38" rx="3" fill="#fff" transform="rotate(6)"/><g stroke="#E3D3B8" stroke-width="2.5" stroke-linecap="round"><line x1="-20" y1="-10" x2="-8" y2="-11" /><line x1="-20" y1="-2" x2="-8" y2="-3"/><line x1="8" y1="-11" x2="20" y2="-10"/><line x1="8" y1="-3" x2="20" y2="-2"/></g><use href="#hd-star" transform="translate(0,-32) scale(0.75)" fill="#FFC21A"/></svg><div><h3>Okumadan öğrenir</h3><p>Her soru ve kelime sesli okunur. Okuma bilmeyen çocuklar da kendi başına oynar.</p></div></article><article class="feat"><svg class="art" width="56" height="56" viewBox="-50 -50 100 100" aria-hidden="true"><g transform="translate(-18,12) rotate(-8)"><rect x="-15" y="-15" width="30" height="30" rx="6" fill="#FF4F5E" stroke="#fff" stroke-width="2.5"/><text x="0" y="10" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="800" font-size="25" fill="#fff">A</text></g><g transform="translate(14,14) rotate(6)"><rect x="-15" y="-15" width="30" height="30" rx="6" fill="#FFC21A" stroke="#fff" stroke-width="2.5"/><text x="0" y="10" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="800" font-size="25" fill="#fff">B</text></g><g transform="translate(-2,-18) rotate(-4)"><rect x="-15" y="-15" width="30" height="30" rx="6" fill="#3CC46A" stroke="#fff" stroke-width="2.5"/><text x="0" y="10" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="800" font-size="25" fill="#fff">C</text></g><use href="#hd-star" transform="translate(28,-24) scale(0.6)" fill="#fff"/></svg><div><h3>5 dilde oynar</h3><p>Türkçe ve İngilizce ile başlar. Almanca, Hollandaca ve Arapça da seçilebilir.</p></div></article><article class="feat"><svg class="art" width="56" height="56" viewBox="-50 -50 100 100" aria-hidden="true"><g transform="translate(-12,6) rotate(-8) scale(0.85)"><g fill="#fff"><rect x="-22" y="-22" width="44" height="44" rx="5"/><circle cx="0" cy="-24" r="10"/><circle cx="24" cy="0" r="10"/></g><g fill="#FFC21A"><rect x="-19" y="-19" width="38" height="38" rx="3"/><circle cx="0" cy="-23" r="7.5"/><circle cx="23" cy="0" r="7.5"/></g></g><g transform="translate(16,-10) rotate(16) scale(0.72)"><g fill="#fff"><rect x="-22" y="-22" width="44" height="44" rx="5"/><circle cx="0" cy="-24" r="10"/><circle cx="24" cy="0" r="10"/></g><g fill="#FF4F8B"><rect x="-19" y="-19" width="38" height="38" rx="3"/><circle cx="0" cy="-23" r="7.5"/><circle cx="23" cy="0" r="7.5"/></g></g></svg><div><h3>Oyunla pekiştirir</h3><p>Eşleştirme oyunu, bilgi yarışması ve iki kişilik yarış öğrendiklerini tekrar ettirir.</p></div></article><article class="feat"><svg class="art" width="56" height="56" viewBox="-50 -50 100 100" aria-hidden="true"><path d="M-12,-34 L-4,-10 L-14,-10Z M12,-34 L4,-10 L14,-10Z" fill="#4FA8F5"/><circle cx="0" cy="8" r="20" fill="#FFC21A" stroke="#fff" stroke-width="3"/><use href="#hd-star" transform="translate(0,9) scale(1.05)" fill="#fff"/></svg><div><h3>Başarısını görür</h3><p>Doğru cevaplarda alkış, konfeti ve rozetler çocuğu motive eder.</p></div></article></div>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap">
+    <p class="kicker">Nasıl başlanır</p>
+    <h2>Bir dakikada oynamaya başlayın</h2>
+    <ol class="steps">
+      <li><h3>Oyunu açın</h3><p>“Hemen Oyna”ya dokunun. Kurulum gerekmez, tarayıcıda açılır.</p></li>
+      <li><h3>“Hadi Başlayalım”a dokunun</h3><p>Kayıt ya da şifre yok. Çocuğunuz hemen oynamaya başlar, isterse sonra adını yazar.</p></li>
+      <li><h3>Bölüm seçin</h3><p>Soruları dinleyin, cevaplayın, rozetleri toplayın.</p></li>
+    </ol>
+  </div></section>
+  <section class="parents"><div class="wrap">
+    <p class="kicker">Anne ve babalar için</p>
+    <h2>Gönül rahatlığıyla verebileceğiniz bir oyun</h2>
+    <p class="sub">Hayvan Dostları sade, güvenli ve çocuğun kendi başına kullanabileceği şekilde tasarlandı.</p>
+    <div class="trust">
+      <div><h3>Reklam yok</h3><p>Oyun sırasında hiçbir reklam çıkmaz.</p></div>
+      <div><h3>Ebeveyn kilidi</h3><p>Satın alma ve dış bağlantılar küçük bir matematik sorusuyla korunur.</p></div>
+      <div><h3>Tek seferlik Premium</h3><p>Abonelik yok. Bir kez açarsınız, tüm bölümler ve diller sizin olur.</p></div>
+    </div>
+  </div></section>
+  <section class="faq"><div class="wrap">
+    <p class="kicker">Sık sorulanlar</p>
+    <h2>Merak ettikleriniz</h2>
+    <details><summary>Ücretsiz mi?</summary><p>Evet. Hayvanlar, Renkler ve Sayılar bölümleri ile Türkçe ve İngilizce ücretsizdir. Diğer bölümler ve diller tek seferlik Premium ile açılır, abonelik yoktur.</p></details><details><summary>Reklam var mı?</summary><p>Hayır. Uygulamada reklam yok, çocuğunuz oynarken karşısına hiçbir reklam çıkmaz.</p></details><details><summary>Hangi cihazlarda oynanır?</summary><p>Telefon, tablet ve bilgisayarda tarayıcıdan oynanır. Android uygulaması Google Play'e geliyor.</p></details><details><summary>Hangi yaşlar için?</summary><p>5-8 yaş arası çocuklar için hazırlandı. Okul öncesi ve ilkokulun ilk yılları için idealdir.</p></details><details><summary>Çocuğumun bilgileri toplanıyor mu?</summary><p>Oyun ilerlemesi yalnızca kendi cihazınızda saklanır. Ayrıntılar için gizlilik politikamıza bakabilirsiniz.</p></details>
+  </div></section>
+  <section class="final" style="padding-top:0"><div class="wrap">
+    <h2>Haydi, ilk soruyu birlikte çözelim</h2>
+    <p class="sub" style="margin-inline:auto">Ücretsiz bölümlerle hemen başlayın.</p>
+    <div class="ctas"><a class="btn" href="https://ebruerdikarasu-hub.github.io/hayvan-dostlari/" target="_blank" rel="noopener">Hemen Oyna</a></div>
+  </div></section>
+</main>
+<footer><div class="wrap">
+  <span>© 2026 Hayvan Dostları · Ebru Karasu</span>
+  <span><a href="https://ebruerdikarasu-hub.github.io/hayvan-dostlari/privacy-policy.html" target="_blank" rel="noopener">Gizlilik Politikası</a> · İletişim: ebruerdikarasu@icloud.com</span>
+</div></footer>
+</body>
+</html>
