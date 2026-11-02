@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Hayvan Dostları · Yönetim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Quicksand:wght@500;600;700&display=swap">
+<style>
+:root{--bg:#F6F1E7;--card:#FFFFFF;--ink:#2E241B;--soft:#7A6553;--line:#E8DCC6;--fox:#F2662B;--green:#3FAE56;--blue:#2F8DE8;--red:#E85454;
+  --display:"Baloo 2","Trebuchet MS",system-ui,sans-serif;--body:"Quicksand","Segoe UI",system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#141B26;--card:#1F2A3B;--ink:#F2EBDF;--soft:#B3A898;--line:#33415A;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 16px 60px}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:18px}
+h1{font-family:var(--display);font-size:30px;margin:0;color:var(--fox)}
+h2{font-family:var(--display);font-size:22px;margin:0 0 12px}
+.card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:18px;margin-bottom:16px}
+button,select,input,textarea{font:inherit}
+.btn{border:none;border-radius:999px;padding:9px 18px;font-weight:700;cursor:pointer;background:var(--fox);color:#fff}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.btn.red{background:var(--red)} .btn:disabled{opacity:.5;cursor:default}
+.who{font-size:14px;color:var(--soft)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kpi{background:var(--bg);border-radius:14px;padding:12px 14px}
+.kpi b{display:block;font-family:var(--display);font-size:30px;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi span{font-size:13px;color:var(--soft);font-weight:700}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.bars{display:grid;gap:6px}
+.bar{display:grid;grid-template-columns:130px 1fr 52px;gap:10px;align-items:center;font-size:14px;font-weight:600}
+.bar i{display:block;height:14px;border-radius:7px;background:var(--blue);min-width:2px}
+.bar em{font-style:normal;text-align:right;font-variant-numeric:tabular-nums}
+.days{display:flex;align-items:flex-end;gap:4px;height:120px;border-bottom:2px solid var(--line);padding-top:8px;overflow-x:auto}
+.days div{flex:1 0 14px;background:var(--fox);border-radius:5px 5px 0 0;position:relative;min-height:2px}
+.days div:hover::after{content:attr(data-t);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--card);font-size:12px;padding:2px 6px;border-radius:6px;white-space:nowrap}
+label{display:block;font-weight:700;font-size:14px;margin:10px 0 4px}
+input[type=text],textarea,select{width:100%;padding:9px 12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.qlist{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:8px}
+.qlist li{display:flex;gap:10px;align-items:center;justify-content:space-between;background:var(--bg);border-radius:12px;padding:8px 12px}
+.qlist li div{min-width:0}
+.msg{font-weight:700;min-height:22px;margin-top:8px}
+.ok{color:var(--green)} .err{color:var(--red)}
+.links a{display:inline-block;margin:4px 8px 4px 0;color:var(--blue);font-weight:700}
+.hide{display:none!important}
+#range{width:auto}
+.login{text-align:center;padding:50px 20px}
+.note{font-size:13px;color:var(--soft)}
+@media (max-width:700px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2{grid-template-columns:1fr}.bar{grid-template-columns:100px 1fr 44px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🦊 Hayvan Dostları · Yönetim</h1>
+    <div id="userBox" class="hide"><span class="who" id="who"></span> <button class="btn ghost" id="logout">Çıkış</button></div>
+  </header>
+
+  <div id="loginView" class="card login">
+    <h2>Yönetim paneline giriş</h2>
+    <p class="note">Bu sayfa yalnızca yöneticiye açıktır.</p>
+    <button class="btn" id="login">Google ile giriş yap</button>
+    <p class="msg err" id="loginMsg"></p>
+  </div>
+
+  <div id="app" class="hide">
+    <section class="card">
+      <div class="row"><h2>👀 Ziyaretçiler ve oyun</h2>
+        <select id="range" aria-label="Zaman aralığı"><option value="1">Bugün</option><option value="7" selected>Son 7 gün</option><option value="30">Son 30 gün</option><option value="90">Son 90 gün</option></select>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><b id="k_site">–</b><span>Site ziyareti</span></div>
+        <div class="kpi"><b id="k_game">–</b><span>Oyun açılışı</span></div>
+        <div class="kpi"><b id="k_prem">–</b><span>Premium ekranı görüntüleme</span></div>
+        <div class="kpi"><b id="k_match">–</b><span>Biten eşleştirme oyunu</span></div>
+      </div>
+      <p class="note">Sadece web (site ve tarayıcıdan oyun) sayılır; Android uygulaması kişisel veri toplamamak için sayılmaz. Kimlik, çerez veya kişisel bilgi tutulmaz.</p>
+      <h2 style="margin-top:14px">Günlük oyun açılışı</h2>
+      <div class="days" id="days"></div>
+      <h2 style="margin-top:18px">En çok açılan bölümler</h2>
+      <div class="bars" id="bars"></div>
+    </section>
+
+    <section class="card">
+      <h2>💰 Satışlar</h2>
+      <p>Google Play'deki Premium satışları, indirmeler ve kullanıcı yorumları Play Console'da görünür:</p>
+      <div class="links">
+        <a href="https://play.google.com/console/u/0/developers/7779487018022482761/app/4974664292606795095/app-dashboard" target="_blank" rel="noopener">Play Console kontrol paneli ↗</a>
+        <a href="https://play.google.com/console/u/0/developers/7779487018022482761/app/4974664292606795095/statistics" target="_blank" rel="noopener">İstatistikler ↗</a>
+        <a href="https://play.google.com/console/u/0/developers/7779487018022482761/orders" target="_blank" rel="noopener">Siparişler ↗</a>
+        <a href="https://play.google.com/console/u/0/developers/7779487018022482761/app/4974664292606795095/user-feedback/reviews" target="_blank" rel="noopener">Yorumlar ↗</a>
+      </div>
+      <p class="note">Web'de satış (Aşama 3): ödeme firması ve vergi kaydı hazır olunca buraya eklenecek.</p>
+    </section>
+
+    <section class="card">
+      <h2>📣 Oyun içi duyuru</h2>
+      <p class="note">Açıkken oyunun ana menüsünde görünür (web ve uygulama).</p>
+      <label for="ann">Duyuru metni</label>
+      <input type="text" id="ann" maxlength="120" placeholder="Örn: Yeni bölüm geldi: İngilizce! 🔤">
+      <label style="display:flex;gap:8px;align-items:center;font-weight:700"><input type="checkbox" id="annOn"> Duyuruyu göster</label>
+      <button class="btn" id="saveAnn" style="margin-top:8px">Kaydet</button>
+      <p class="msg" id="annMsg"></p>
+    </section>
+
+    <section class="card">
+      <h2>❓ Ek sorular</h2>
+      <p class="note">Buradan eklediğin sorular, seçtiğin bölümde Türkçe oynarken arada çıkar. Uygulamayı yeniden yüklemeye gerek yoktur.</p>
+      <div class="grid2">
+        <div><label for="qSec">Bölüm</label><select id="qSec"></select></div>
+        <div><label for="qEmoji">Resim (emoji)</label><input type="text" id="qEmoji" maxlength="4" placeholder="🦔"></div>
+      </div>
+      <label for="qText">Soru</label><input type="text" id="qText" maxlength="90" placeholder="Kirpinin sırtında ne vardır?">
+      <div class="grid2">
+        <div><label for="qA">Doğru cevap</label><input type="text" id="qA" maxlength="30" placeholder="Dikenler"></div>
+        <div><label for="qW1">Yanlış cevap 1</label><input type="text" id="qW1" maxlength="30" placeholder="Tüyler"></div>
+      </div>
+      <label for="qW2">Yanlış cevap 2</label><input type="text" id="qW2" maxlength="30" placeholder="Pullar">
+      <button class="btn" id="addQ" style="margin-top:10px">Soruyu ekle</button>
+      <p class="msg" id="qMsg"></p>
+      <ul class="qlist" id="qList"></ul>
+    </section>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, collection, query, where, getDocs, documentId } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const app = initializeApp({
+  apiKey: "AIzaSyD2o8v-XdJsp2bgUETjmyUo98Z6oi0g5xw",
+  authDomain: "hayvan-dostlari-febef.firebaseapp.com",
+  projectId: "hayvan-dostlari-febef",
+  storageBucket: "hayvan-dostlari-febef.firebasestorage.app",
+  messagingSenderId: "444415225660",
+  appId: "1:444415225660:web:7569069fb7041c40ba7839"
+});
+const ADMIN = 'ebruerdikarasu@icloud.com';
+const auth = getAuth(app), db = getFirestore(app);
+const $ = id => document.getElementById(id);
+const SECTIONS = {animals:'Hayvanlar',english:'İngilizce',colors:'Renkler',numbers:'Sayılar',shapes:'Şekiller',planets:'Gezegenler',jobs:'Meslekler',food:'Meyve & Sebze',vehicles:'Taşıtlar',weather:'Hava & Mevsim',body:'Vücudumuz'};
+$('qSec').innerHTML = Object.entries(SECTIONS).map(([k,v])=>`<option value="${k}">${v}</option>`).join('');
+const esc = s => String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function say(el, text, ok){ el.textContent = text; el.className = 'msg ' + (ok ? 'ok' : 'err'); }
+
+$('login').onclick = async ()=>{
+  try{ await signInWithPopup(auth, new GoogleAuthProvider()); }
+  catch(e){ say($('loginMsg'), 'Giriş yapılamadı: ' + (e.code || e.message), false); }
+};
+$('logout').onclick = ()=> signOut(auth);
+
+onAuthStateChanged(auth, user=>{
+  const isAdmin = !!user && user.email === ADMIN;
+  $('loginView').classList.toggle('hide', isAdmin);
+  $('app').classList.toggle('hide', !isAdmin);
+  $('userBox').classList.toggle('hide', !user);
+  $('who').textContent = user ? user.email : '';
+  if(user && !isAdmin){ say($('loginMsg'), 'Bu hesabın yönetim yetkisi yok: ' + user.email, false); signOut(auth); }
+  if(isAdmin){ loadStats(); loadConfig(); }
+});
+
+function dayStr(offset){ const d = new Date(Date.now() + 3*3600*1000 - offset*86400000); return d.toISOString().slice(0,10); }
+async function loadStats(){
+  const n = parseInt($('range').value,10);
+  const from = dayStr(n-1), to = dayStr(0);
+  let rows = [];
+  try{
+    const snap = await getDocs(query(collection(db,'stats'), where(documentId(),'>=',from), where(documentId(),'<=',to)));
+    snap.forEach(d=> rows.push({day:d.id, ...d.data()}));
+  }catch(e){ $('bars').innerHTML = '<p class="err">Veriler okunamadı: ' + esc(e.code||e.message) + '</p>'; return; }
+  const sum = k => rows.reduce((a,r)=>a+(r[k]||0),0);
+  $('k_site').textContent = sum('site_views'); $('k_game').textContent = sum('game_opens');
+  $('k_prem').textContent = sum('premium_views'); $('k_match').textContent = sum('match_games');
+  const byDay = {}; rows.forEach(r=> byDay[r.day] = r.game_opens||0);
+  const days = []; for(let i=n-1;i>=0;i--){ const d = dayStr(i); days.push([d, byDay[d]||0]); }
+  const mx = Math.max(1, ...days.map(d=>d[1]));
+  $('days').innerHTML = days.map(([d,v])=>`<div style="height:${Math.max(2, v/mx*100)}%" data-t="${d.slice(5)}: ${v}"></div>`).join('');
+  const secs = Object.keys(SECTIONS).map(k=>[SECTIONS[k], sum('sec_'+k)]).sort((a,b)=>b[1]-a[1]);
+  const smx = Math.max(1, ...secs.map(s=>s[1]));
+  $('bars').innerHTML = secs.map(([name,v])=>`<div class="bar"><span>${esc(name)}</span><i style="width:${v/smx*100}%"></i><em>${v}</em></div>`).join('');
+}
+$('range').onchange = loadStats;
+
+let CFG = { announce:'', announceOn:false, extraQs:[] };
+async function loadConfig(){
+  try{ const s = await getDoc(doc(db,'config','public')); if(s.exists()) CFG = Object.assign(CFG, s.data()); }catch(e){}
+  $('ann').value = CFG.announce || ''; $('annOn').checked = !!CFG.announceOn; renderQs();
+}
+async function saveCfg(){ await setDoc(doc(db,'config','public'), CFG); }
+$('saveAnn').onclick = async ()=>{
+  CFG.announce = $('ann').value.trim(); CFG.announceOn = $('annOn').checked;
+  try{ await saveCfg(); say($('annMsg'), 'Kaydedildi ✓', true); }catch(e){ say($('annMsg'), 'Kaydedilemedi: ' + (e.code||e.message), false); }
+};
+function renderQs(){
+  const qs = CFG.extraQs || [];
+  $('qList').innerHTML = qs.length ? qs.map((q,i)=>`<li><div><b>${esc(q.emoji||'❓')} ${esc(q.q)}</b><br><span class="note">${esc(SECTIONS[q.section]||q.section)} · ✓ ${esc(q.a)} · ✗ ${esc(q.w1)}, ${esc(q.w2)}</span></div><button class="btn red" data-del="${i}">Sil</button></li>`).join('')
+    : '<li class="note">Henüz ek soru yok.</li>';
+  $('qList').querySelectorAll('[data-del]').forEach(b=> b.onclick = async ()=>{
+    if(b.dataset.confirm !== '1'){ b.dataset.confirm='1'; b.textContent='Emin misin?'; return; }
+    CFG.extraQs.splice(parseInt(b.dataset.del,10),1);
+    try{ await saveCfg(); renderQs(); }catch(e){ say($('qMsg'), 'Silinemedi: ' + (e.code||e.message), false); }
+  });
+}
+$('addQ').onclick = async ()=>{
+  const q = { section:$('qSec').value, emoji:$('qEmoji').value.trim(), q:$('qText').value.trim(), a:$('qA').value.trim(), w1:$('qW1').value.trim(), w2:$('qW2').value.trim() };
+  if(!q.q || !q.a || !q.w1 || !q.w2){ say($('qMsg'), 'Soru, doğru cevap ve iki yanlış cevap gerekli.', false); return; }
+  CFG.extraQs = (CFG.extraQs||[]).concat([q]);
+  try{ await saveCfg(); say($('qMsg'), 'Soru eklendi ✓', true); ['qEmoji','qText','qA','qW1','qW2'].forEach(id=>$(id).value=''); renderQs(); }
+  catch(e){ CFG.extraQs.pop(); say($('qMsg'), 'Eklenemedi: ' + (e.code||e.message), false); }
+};
+</script>
+</body>
+</html>
