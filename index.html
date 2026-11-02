@@ -485,5 +485,12 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-bet
 })();
 
 </script>
+<script>
+(function(){ try{
+  var d=new Date(Date.now()+3*3600*1000).toISOString().slice(0,10);
+  fetch('https://firestore.googleapis.com/v1/projects/hayvan-dostlari-febef/databases/(default)/documents:commit?key=AIzaSyD2o8v-XdJsp2bgUETjmyUo98Z6oi0g5xw',
+    {method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({writes:[{transform:{document:'projects/hayvan-dostlari-febef/databases/(default)/documents/stats/'+d,fieldTransforms:[{fieldPath:'site_views',increment:{integerValue:'1'}}]}}]})}).catch(function(){});
+}catch(e){} })();
+</script>
 </body>
 </html>
